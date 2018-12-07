@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const _ = require('lodash');
 const chalk = require('chalk');
 const politicsStorage = require('./politicsStorage');
