@@ -1,9 +1,9 @@
-const fs = require('fs');
-
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var fs = require("fs");
 /**
  * Read stored politics
- * 
+ *
  * Expect stored in JSON and in following format;
  *   [
  *      {
@@ -11,22 +11,19 @@ const fs = require('fs');
  *          "politics": description of the politics
  *      }, ...
  *   ]
- *   
+ *
  * @param {str} path
  * @return promise that resovle as list of politics
  */
-const readPolitics = path => {
-
-    return new Promise((resolve, reject) => {
-        fs.readFile(path, (err, data) => {
+exports.readPolitics = function (path) {
+    return new Promise(function (resolve, reject) {
+        fs.readFile(path, function (err, data) {
             if (err) {
                 reject(err);
-            } else {
+            }
+            else {
                 resolve(data);
             }
         });
-    }).then(rawPolitics => JSON.parse(rawPolitics));
+    }).then(function (rawPolitics) { return JSON.parse(rawPolitics); });
 };
-
-
-module.exports.readPolitics = readPolitics;

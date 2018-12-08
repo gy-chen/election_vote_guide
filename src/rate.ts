@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const inquirer = require('inquirer');
+import * as _ from 'lodash';
+import * as inquirer from 'inquirer';
 
 
 const CHOICE_NAME = {
@@ -16,7 +16,7 @@ const CHOICE_NAME = {
  * @param {list} politics 
  * @return promise that resolve list of ratings that user anwsered
  */
-const askRatings = politics => inquirer.prompt(politics.map((p, i) => (
+export const askRatings = politics => inquirer.prompt(politics.map((p, i) => (
     {
         type: 'list',
         name: String(i),
@@ -26,7 +26,7 @@ const askRatings = politics => inquirer.prompt(politics.map((p, i) => (
     }
 ))).then(answers => {
     const ratings = [];
-    for (key in answers) {
+    for (const key in answers) {
         ratings.push({
             politics: politics[key],
             rating: answers[key]
@@ -41,7 +41,7 @@ const askRatings = politics => inquirer.prompt(politics.map((p, i) => (
  * @param {list} ratings list of rating
  * @return object that contains keys candidate and score.
  */
-const scoreRatings = ratings => {
+export const scoreRatings = ratings => {
     const counter = {};
 
     for (const rating of ratings) {
@@ -57,6 +57,3 @@ const scoreRatings = ratings => {
 
     return scores;
 }
-
-module.exports.askRatings = askRatings;
-module.exports.scoreRatings = scoreRatings;

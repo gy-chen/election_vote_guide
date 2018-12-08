@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-const _ = require('lodash');
-const chalk = require('chalk');
-const politicsStorage = require('./politicsStorage');
-const rate = require('./rate');
+import * as _ from 'lodash';
+import * as yargs from 'yargs';
+import chalk from 'chalk';
+import * as politicsStorage from './politicsStorage';
+import * as rate from './rate';
 
 const printHigestScore = score => {
     console.log(chalk.green(`You should vote ${score.candidate}!`));
@@ -21,7 +22,7 @@ const createPrintScore = () => {
 }
 
 const main = () => {
-    const argv = require('yargs')
+    const argv = yargs
         .usage('Usage: $0 --path [path]')
         .describe('path', 'path to the file that contains politics. expect in format [{ candidate: name, politics: description}, ...]')
         .demand(['path'])
@@ -38,7 +39,7 @@ const main = () => {
             const higestScore = scores[0];
             printHigestScore(higestScore);
             console.log(chalk.bgMagenta`All Scores:`)
-            for (score of scores) {
+            for (const score of scores) {
                 printScore(score);
             }
         });
