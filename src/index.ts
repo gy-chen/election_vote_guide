@@ -6,14 +6,14 @@ import chalk from 'chalk';
 import * as politicsStorage from './politicsStorage';
 import * as rate from './rate';
 
-const printHigestScore = score => {
+const printHigestScore = (score: rate.Score) => {
     console.log(chalk.green(`You should vote ${score.candidate}!`));
 };
 
 const createPrintScore = () => {
     let alt = false;
 
-    return score => {
+    return (score: rate.Score) => {
         const strWrap = alt ? chalk.cyan : chalk.white;
         console.log(strWrap(`Candidate: ${score.candidate}`));
         console.log(strWrap(`Score: ${score.score}`));
@@ -31,7 +31,7 @@ const main = () => {
     const printScore = createPrintScore();
 
     return politicsStorage.readPolitics(argv.path)
-        .then(_.shuffle)
+        .then(politics => _.shuffle(politics))
         .then(shuffledPolitics => rate.askRatings(shuffledPolitics))
         .then(ratings => rate.scoreRatings(ratings))
         .then(scores => {

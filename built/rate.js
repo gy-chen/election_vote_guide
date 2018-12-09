@@ -24,7 +24,7 @@ exports.askRatings = function (politics) { return inquirer.prompt(politics.map(f
     var ratings = [];
     for (var key in answers) {
         ratings.push({
-            politics: politics[key],
+            politics: politics[parseInt(key)],
             rating: answers[key]
         });
     }

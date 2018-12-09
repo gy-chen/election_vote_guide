@@ -2,12 +2,21 @@ import * as _ from 'lodash';
 import * as inquirer from 'inquirer';
 import { Politics } from './politicsStorage';
 
-
-interface Answers {
-    [propName: string]: number
+export interface Rating {
+    politics: Politics;
+    rating: number;
 }
 
-const CHOICE_NAME = {
+export interface Score {
+    candidate: string;
+    score: number;
+}
+
+interface ChoiceName {
+    [propName: number]: string;
+}
+
+const CHOICE_NAME: ChoiceName = {
     1: '★',
     2: '★★',
     3: '★★★',
@@ -28,12 +37,12 @@ export const askRatings = (politics: Politics[]) => inquirer.prompt(politics.map
         message: p.politics,
         default: 2,
         choices: [5, 4, 3, 2, 1].map(val => ({ name: CHOICE_NAME[val], value: val }))
-    }
-))).then((answers: Answers) => {
+    } as inquirer.Question
+))).then(answers => {
     const ratings = [];
     for (const key in answers) {
         ratings.push({
-            politics: politics[key],
+            politics: politics[parseInt(key)],
             rating: answers[key]
         });
     }
@@ -46,8 +55,13 @@ export const askRatings = (politics: Politics[]) => inquirer.prompt(politics.map
  * @param {list} ratings list of rating
  * @return object that contains keys candidate and score.
  */
-export const scoreRatings = ratings => {
-    const counter = {};
+export const scoreRatings = (ratings: Rating[]) => {
+    const counter: {
+        [candidateName: string]: {
+            score: number;
+            count: number;
+        }
+    } = {};
 
     for (const rating of ratings) {
         counter[rating.politics.candidate] = counter[rating.politics.candidate] || { score: 0, count: 0 };
@@ -55,7 +69,7 @@ export const scoreRatings = ratings => {
         counter[rating.politics.candidate].count += 1;
     }
 
-    const scores = [];
+    const scores: Score[] = [];
     for (const candidate in counter) {
         scores.push({ candidate, score: counter[candidate].score / counter[candidate].count });
     }

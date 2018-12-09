@@ -30,7 +30,7 @@ var main = function () {
         .argv;
     var printScore = createPrintScore();
     return politicsStorage.readPolitics(argv.path)
-        .then(_.shuffle)
+        .then(function (politics) { return _.shuffle(politics); })
         .then(function (shuffledPolitics) { return rate.askRatings(shuffledPolitics); })
         .then(function (ratings) { return rate.scoreRatings(ratings); })
         .then(function (scores) {
