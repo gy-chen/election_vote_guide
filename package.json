@@ -6,7 +6,6 @@
   "author": "GYCHEN <gy.chen@gms.nutc.edu.tw>",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "^10.12.12",
     "chalk": "^2.4.1",
     "inquirer": "^6.2.0",
     "lodash": "^4.17.11",
@@ -14,5 +13,9 @@
   },
   "scripts": {
     "start": "node built/index.js"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^0.0.43",
+    "@types/node": "^10.12.12"
   }
 }

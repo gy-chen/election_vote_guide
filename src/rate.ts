@@ -1,6 +1,11 @@
 import * as _ from 'lodash';
 import * as inquirer from 'inquirer';
+import { Politics } from './politicsStorage';
 
+
+interface Answers {
+    [propName: string]: number
+}
 
 const CHOICE_NAME = {
     1: '★',
@@ -16,7 +21,7 @@ const CHOICE_NAME = {
  * @param {list} politics 
  * @return promise that resolve list of ratings that user anwsered
  */
-export const askRatings = politics => inquirer.prompt(politics.map((p, i) => (
+export const askRatings = (politics: Politics[]) => inquirer.prompt(politics.map((p, i) => (
     {
         type: 'list',
         name: String(i),
@@ -24,7 +29,7 @@ export const askRatings = politics => inquirer.prompt(politics.map((p, i) => (
         default: 2,
         choices: [5, 4, 3, 2, 1].map(val => ({ name: CHOICE_NAME[val], value: val }))
     }
-))).then(answers => {
+))).then((answers: Answers) => {
     const ratings = [];
     for (const key in answers) {
         ratings.push({

@@ -1,6 +1,11 @@
 import * as fs from 'fs';
 
 
+export interface Politics {
+    candidate: string;
+    politics: string;
+}
+
 /**
  * Read stored politics
  * 
@@ -15,7 +20,7 @@ import * as fs from 'fs';
  * @param {str} path
  * @return promise that resovle as list of politics
  */
-export const readPolitics = path => {
+export const readPolitics = (path: string): Promise<Politics[]> => {
 
     return new Promise((resolve, reject) => {
         fs.readFile(path, (err, data) => {
