@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import * as _ from 'lodash';
 import * as yargs from 'yargs';
 import chalk from 'chalk';
