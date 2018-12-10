@@ -30,14 +30,14 @@ const CHOICE_NAME: ChoiceName = {
  * @param {list} politics 
  * @return promise that resolve list of ratings that user anwsered
  */
-export const askRatings = (politics: Politics[]) => inquirer.prompt(politics.map((p, i) => (
+export const askRatings = (politics: Politics[]) => inquirer.prompt(politics.map((p, i): inquirer.Question => (
     {
         type: 'list',
         name: String(i),
         message: p.politics,
         default: 2,
         choices: [5, 4, 3, 2, 1].map(val => ({ name: CHOICE_NAME[val], value: val }))
-    } as inquirer.Question
+    }
 ))).then(answers => {
     const ratings = [];
     for (const key in answers) {
