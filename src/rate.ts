@@ -39,7 +39,7 @@ export const askRatings = (politics: Politics[]) => inquirer.prompt(politics.map
         choices: [5, 4, 3, 2, 1].map(val => ({ name: CHOICE_NAME[val], value: val }))
     }
 ))).then(answers => {
-    const ratings = [];
+    const ratings: Rating[] = [];
     for (const key in answers) {
         ratings.push({
             politics: politics[parseInt(key)],
